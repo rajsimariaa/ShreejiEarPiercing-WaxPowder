@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="adminPortal">Admin Portal - Shreeji Ear Piercing</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -63,7 +64,7 @@
         .divider-text:not(:empty)::before { margin-right: 1rem; }
         .divider-text:not(:empty)::after { margin-left: 1rem; }
 
-        #dashboard {
+        #dashboard, #userDashboard, #adminDashboard {
             display: none;
             width: 100%;
             max-width: 1000px;
@@ -71,6 +72,7 @@
             padding: 3rem;
             border-radius: 30px;
             box-shadow: var(--shadow);
+            margin: 2rem 0;
         }
         .appointment-list {
             margin-top: 2rem;
@@ -81,6 +83,47 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .portal-container {
+                padding: 1rem;
+                align-items: flex-start;
+            }
+            .auth-card, #userDashboard, #adminDashboard {
+                padding: 1.5rem;
+                border-radius: 20px;
+                margin: 1rem 0;
+            }
+            .portal-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .portal-header div {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 0.8rem;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem !important;
+            }
+            .appointment-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .appointment-item > div:last-child {
+                width: 100%;
+                text-align: left !important;
+            }
         }
     </style>
 </head>
@@ -119,15 +162,15 @@
 
         <!-- User Dashboard Section -->
         <div id="userDashboard" style="display: none; width: 100%; max-width: 1000px; background: white; padding: 3rem; border-radius: 30px; box-shadow: var(--shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div class="portal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <h2>User Portal</h2>
-                <div style="display: flex; gap: 1rem;">
+                <div>
                     <a href="index.html" class="btn btn-outline" style="text-decoration: none;">Back to Home</a>
                     <button class="btn btn-outline" onclick="logout()">Logout</button>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+            <div class="dashboard-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
                 <!-- New Booking Form -->
                 <div style="padding: 2rem; background: var(--bg-cream); border-radius: 20px;">
                     <h3 style="margin-bottom: 1.5rem;" data-i18n="bookNow">Book New Appointment</h3>
@@ -197,16 +240,16 @@
 
         <!-- Admin Dashboard Section -->
         <div id="adminDashboard" style="display: none; width: 100%; max-width: 1000px; background: white; padding: 3rem; border-radius: 30px; box-shadow: var(--shadow);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div class="portal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <h2>Admin Control Center</h2>
-                <div style="display: flex; gap: 1rem;">
+                <div>
                     <a href="index.html" class="btn btn-outline" style="text-decoration: none;">Back to Home</a>
                     <button class="btn btn-outline" onclick="logout()">Logout</button>
                 </div>
             </div>
 
             <!-- Performance Metrics Section -->
-            <div id="adminMetrics" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+            <div id="adminMetrics" class="metrics-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
                 <div style="background: var(--bg-cream); padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #EAE0C8;">
                     <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 0.5rem;">Total Bookings</div>
                     <div id="metricTotal" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</div>
