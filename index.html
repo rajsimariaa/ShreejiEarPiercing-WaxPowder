@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Shreeji Ear Piercing & Wax Powder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="logo.png" id="logoImg" alt="Shreeji Logo">
+                    <span data-i18n="title">Shreeji Ear Piercing</span>
+                </a>
+                <div class="nav-links" id="navMenu">
+                    <a href="#services" data-i18n="ourServices">Our Services</a>
+                    <a href="portal.html" data-i18n="adminPortal">Admin Portal</a>
+                    <select id="langSelector" class="lang-selector" onchange="setLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="gu">ગુજરાતી</option>
+                    </select>
+                </div>
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1 data-i18n="heroTitle">Painless Ear Piercing & Natural Hair Removal</h1>
+                        <p data-i18n="heroSub">Experience traditional care with modern precision. Painless ear knobbing and natural wax powder for smooth skin.</p>
+                    </div>
+                    <div class="hero-image">
+                        <img src="hero.png" id="heroImg" alt="Painless Ear Piercing">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-i18n="ourServices">Our Services</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fa-solid fa-ear-listen"></i>
+                        <h3 data-i18n="earPiercing">Painless Ear Piercing</h3>
+                        <p data-i18n="earDesc">Ear knobbing in just 1 sitting with zero pain. Safe for all ages.</p>
+                        <img src="procedure.png" style="width: 100%; border-radius: 20px; margin-top: 1rem;" alt="Painless Ear Piercing">
+                    </div>
+                    <div class="service-card">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <h3 data-i18n="waxPowder">Natural Wax Powder</h3>
+                        <p data-i18n="waxDesc">Remove unwanted body hair within 6 mins without any side effects.</p>
+                        <img src="wax.png" style="width: 100%; border-radius: 20px; margin-top: 1rem;" alt="Wax Powder">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process" style="padding: 6rem 0; background: var(--bg-cream);">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-i18n="processTitle">How it Works</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" style="background: white;">
+                        <img src="step1.png" style="height: 80px; margin-bottom: 1rem;" alt="Step 1">
+                        <h3 data-i18n="step1">Book Appointment</h3>
+                        <p data-i18n="step1Desc">Choose your service and preferred time online.</p>
+                    </div>
+                    <div class="service-card" style="background: white;">
+                        <img src="step2.png" style="height: 80px; margin-bottom: 1rem;" alt="Step 2">
+                        <h3 data-i18n="step2">Quick Consultation</h3>
+                        <p data-i18n="step2Desc">Geeta will guide you through the painless process.</p>
+                    </div>
+                    <div class="service-card" style="background: white;">
+                        <img src="step3.png" style="height: 80px; margin-bottom: 1rem;" alt="Step 3">
+                        <h3 data-i18n="step3">Safe Procedure</h3>
+                        <p data-i18n="step3Desc">Get your piercing or waxing done in minutes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="logo.png" alt="Logo">
+                        <span>Shreeji</span>
+                    </a>
+                    <p>Painless ear piercing and natural wax powder services since years.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="ourServices">Our Services</h4>
+                    <ul>
+                        <li><a href="#services" data-i18n="earPiercing">Painless Ear Piercing</a></li>
+                        <li><a href="#services" data-i18n="waxPowder">Natural Wax Powder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="contactUs">Contact Geeta</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <a href="https://wa.me/918850944050" class="whatsapp-link">
+                                <i class="fa-brands fa-whatsapp"></i> 8850944050
+                            </a>
+                        </li>
+                        <li><i class="fa-solid fa-phone"></i> 9821499931</li>
+                        <li><i class="fa-solid fa-phone"></i> 9653230070</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer">© 2026 Shreeji Ear Piercing. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8;">Made by <a href="https://rajsimaria.vercel.app" target="_blank" style="color: var(--primary-gold); text-decoration: none; font-weight: 600;">Raj Simaria</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBooking()">&times;</span>
+            <h2 data-i18n="bookNow">Book Appointment</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label data-i18n="nameLabel">Full Name</label>
+                    <input type="text" id="custName" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="phoneLabel">Phone Number</label>
+                    <input type="tel" id="custPhone" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="serviceLabel">Select Service</label>
+                    <select id="custService">
+                        <option value="ear-piercing" data-i18n="earPiercing">Ear Piercing</option>
+                        <option value="wax-powder" data-i18n="waxPowder">Wax Powder</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="dateLabel">Preferred Date</label>
+                    <input type="date" id="custDate" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="visitChoice">How would you like to meet?</label>
+                    <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                        <label style="font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="visitType" value="visit-us" checked onchange="toggleVisitFields('')"> <span data-i18n="visitUs">I will visit you</span>
+                        </label>
+                        <label style="font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" name="visitType" value="visit-home" onchange="toggleVisitFields('')"> <span data-i18n="visitHome">Home Visit</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Shop Address (Shown if visit-us) -->
+                <div id="shopAddressSection" class="form-group" style="padding: 1.5rem; background: #F8F9FA; border-radius: 15px;">
+                    <strong data-i18n="ourAddress">Our Address</strong>
+                    <p data-i18n="shopAddress" style="font-size: 0.95rem; margin: 0.5rem 0; color: #555;">102, Silver Sea View, Plot number 17, Sector number 8, Charkop, Kandivali West, Mumbai 400 067</p>
+                    <a href="https://maps.app.goo.gl/7HTLRLdd4hmUUw3k9?g_st=ac" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
+                        <i class="fa-solid fa-location-dot"></i> <span data-i18n="viewMaps">View on Google Maps</span>
+                    </a>
+                </div>
+
+                <!-- Customer Address (Shown if visit-home) -->
+                <div id="homeAddressSection" class="form-group" style="display: none;">
+                    <label data-i18n="customerAddress">Your Full Address</label>
+                    <textarea id="custAddress" rows="3" placeholder="Enter your full address for home visit..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" data-i18n="submitBooking">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <script src="config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function checkAuthAndOpen() {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                openBooking();
+            } else {
+                alert("Please login first to book an appointment!");
+                window.location.href = "portal.html?redirect=booking";
+            }
+        }
+
+        // Auto-open modal if redirected back from login
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('open') === 'booking') {
+                // Wait a bit for auth to resolve
+                setTimeout(() => {
+                    if (firebase.auth().currentUser) {
+                        openBooking();
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

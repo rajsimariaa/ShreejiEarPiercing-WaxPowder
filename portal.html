@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="adminPortal">Admin Portal - Shreeji Ear Piercing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .portal-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #FFFEFA 0%, #F5E8D3 100%);
+        }
+        .auth-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .auth-card img {
+            height: 60px;
+            margin-bottom: 1.5rem;
+        }
+        .google-btn {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #EEE;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        .google-btn:hover {
+            background: #F9F9F9;
+            border-color: var(--primary-gold);
+        }
+        .divider-text {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #AAA;
+            margin-bottom: 2rem;
+        }
+        .divider-text::before, .divider-text::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #EEE;
+        }
+        .divider-text:not(:empty)::before { margin-right: 1rem; }
+        .divider-text:not(:empty)::after { margin-left: 1rem; }
+
+        #dashboard {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+        .appointment-list {
+            margin-top: 2rem;
+        }
+        .appointment-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #EEE;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <!-- Login Section -->
+        <div id="authSection" class="auth-card">
+            <div style="text-align: left; margin-bottom: 1rem;">
+                <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">← Back to Home</a>
+            </div>
+            <img src="logo.png" alt="Shreeji Logo">
+            <h2 data-i18n="loginTitle" style="margin-bottom: 2rem;">Welcome to Shreeji Portal</h2>
+            
+            <button class="google-btn" onclick="loginWithGoogle()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="height: 20px; margin: 0;">
+                <span data-i18n="authGoogle">Continue with Google</span>
+            </button>
+
+            <div class="divider-text">OR</div>
+
+            <form id="loginForm">
+                <div class="form-group" style="text-align: left;">
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label>Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" id="authBtn" class="btn btn-primary w-100" style="width: 100%;">Login</button>
+            </form>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+                Don't have an account? <a href="#" onclick="toggleAuth(event)" id="toggleLink">Sign Up</a>
+            </p>
+        </div>
+
+        <!-- User Dashboard Section -->
+        <div id="userDashboard" style="display: none; width: 100%; max-width: 1000px; background: white; padding: 3rem; border-radius: 30px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>User Portal</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="index.html" class="btn btn-outline" style="text-decoration: none;">Back to Home</a>
+                    <button class="btn btn-outline" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <!-- New Booking Form -->
+                <div style="padding: 2rem; background: var(--bg-cream); border-radius: 20px;">
+                    <h3 style="margin-bottom: 1.5rem;" data-i18n="bookNow">Book New Appointment</h3>
+                    <form id="bookingFormPortal">
+                        <div class="form-group">
+                            <label data-i18n="nameLabel">Full Name</label>
+                            <input type="text" id="custNamePortal" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="phoneLabel">Phone Number</label>
+                            <input type="tel" id="custPhonePortal" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="serviceLabel">Select Service</label>
+                            <select id="custServicePortal">
+                                <option value="ear-piercing" data-i18n="earPiercing">Ear Piercing</option>
+                                <option value="wax-powder" data-i18n="waxPowder">Wax Powder</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="dateLabel">Preferred Date</label>
+                            <input type="date" id="custDatePortal" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="timeLabel">Preferred Time</label>
+                            <input type="time" id="custTimePortal" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="visitChoice">How would you like to meet?</label>
+                            <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                                <label style="font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="radio" name="visitTypePortal" value="visit-us" checked onchange="toggleVisitFields('Portal')"> <span data-i18n="visitUs">I will visit you</span>
+                                </label>
+                                <label style="font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="radio" name="visitTypePortal" value="visit-home" onchange="toggleVisitFields('Portal')"> <span data-i18n="visitHome">Home Visit</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Shop Address (Shown if visit-us) -->
+                        <div id="shopAddressSectionPortal" class="form-group" style="padding: 1rem; background: #F8F9FA; border-radius: 12px; font-size: 0.85rem;">
+                            <strong data-i18n="ourAddress">Our Address</strong>
+                            <p data-i18n="shopAddress" style="margin: 0.3rem 0; color: #555;">102, Silver Sea View, Plot number 17, Sector number 8, Charkop, Kandivali West, Mumbai 400 067</p>
+                            <a href="https://maps.app.goo.gl/7HTLRLdd4hmUUw3k9?g_st=ac" target="_blank" class="btn btn-outline" style="font-size: 0.7rem; padding: 0.4rem 0.8rem; margin-top: 0.5rem; display: inline-block; text-decoration: none;">
+                                <i class="fa-solid fa-location-dot"></i> <span data-i18n="viewMaps">View on Google Maps</span>
+                            </a>
+                        </div>
+
+                        <!-- Customer Address (Shown if visit-home) -->
+                        <div id="homeAddressSectionPortal" class="form-group" style="display: none;">
+                            <label data-i18n="customerAddress">Your Full Address</label>
+                            <textarea id="custAddressPortal" rows="2" style="padding: 0.8rem;" placeholder="Enter your full address..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" data-i18n="submitBooking">Confirm Booking</button>
+                    </form>
+                </div>
+
+                <!-- Appointments List -->
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">My Appointments</h3>
+                    <div class="appointment-list" id="userAppointmentList">
+                        <p>Loading your appointments...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard Section -->
+        <div id="adminDashboard" style="display: none; width: 100%; max-width: 1000px; background: white; padding: 3rem; border-radius: 30px; box-shadow: var(--shadow);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Admin Control Center</h2>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="index.html" class="btn btn-outline" style="text-decoration: none;">Back to Home</a>
+                    <button class="btn btn-outline" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <!-- Performance Metrics Section -->
+            <div id="adminMetrics" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+                <div style="background: var(--bg-cream); padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #EAE0C8;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 0.5rem;">Total Bookings</div>
+                    <div id="metricTotal" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</div>
+                </div>
+                <div style="background: #E8F5E9; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #C8E6C9;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #2E7D32; margin-bottom: 0.5rem;">Completed</div>
+                    <div id="metricCompleted" style="font-size: 2rem; font-weight: 800; color: #2E7D32;">0</div>
+                </div>
+                <div style="background: #FFF3E0; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #FFE0B2;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #EF6C00; margin-bottom: 0.5rem;">Pending</div>
+                    <div id="metricPending" style="font-size: 2rem; font-weight: 800; color: #EF6C00;">0</div>
+                </div>
+                <div style="background: #F3E5F5; padding: 1.5rem; border-radius: 20px; text-align: center; border: 1px solid #E1BEE7;">
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #7B1FA2; margin-bottom: 0.5rem;">Home Visits</div>
+                    <div id="metricHome" style="font-size: 2rem; font-weight: 800; color: #7B1FA2;">0</div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 1.5rem;">Recent Appointments</h3>
+            <div class="appointment-list" id="adminAppointmentList">
+                <p>Loading all appointments...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; background: transparent; color: #666; font-size: 0.8rem;">
+        <p>&copy; 2026 Shreeji Ear Piercing. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">Made by <a href="https://rajsimaria.vercel.app" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">Raj Simaria</a></p>
+    </footer>
+
+    <!-- Firebase Scripts (CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
