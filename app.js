@@ -3,7 +3,7 @@ if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
 }
 
-// UI Logic for Shreeji Ear Piercing
+// UI Logic for Shreeji Ear Care
 
 function openBooking() {
     document.getElementById('bookingModal').style.display = 'flex';
