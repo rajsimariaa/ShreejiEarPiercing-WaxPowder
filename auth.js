@@ -153,39 +153,77 @@ if (typeof firebase !== 'undefined') {
     function renderList(snapshot, list, canDelete) {
         list.innerHTML = '';
         if (snapshot.empty) {
-            list.innerHTML = '<p>No appointments found.</p>';
+            list.innerHTML = `
+                <div class="text-center py-12 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                    <i class="fa-solid fa-calendar-xmark text-4xl text-gray-300 mb-4 block"></i>
+                    <p class="text-gray-500 font-medium">No appointments found.</p>
+                </div>
+            `;
             return;
         }
 
         snapshot.forEach(doc => {
             const data = doc.data();
-            const dateStr = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleDateString() : 'Pending...';
+            const dateStr = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : 'Pending...';
+            const statusColor = data.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
+            
             const div = document.createElement('div');
-            div.className = 'appointment-item';
+            div.className = 'group p-6 mb-6 bg-white rounded-3xl border border-gray-100 hover:border-gold-300 hover:shadow-gold-soft transition-all duration-300';
             div.innerHTML = `
-                <div style="flex: 1;">
-                    <strong>${data.name}</strong> (${data.phone})<br>
-                    <small>${data.service} - ${data.date} at ${data.time || 'N/A'}</small>
-                    <div style="font-size: 0.85rem; margin-top: 0.5rem; color: #d4a017;">
-                        <i class="fa-solid ${data.visitType === 'visit-home' ? 'fa-house-user' : 'fa-shop'}"></i> 
-                        ${data.visitType === 'visit-home' ? 'Home Visit' : 'Shop Visit'}
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex-grow">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusColor}">
+                                ${data.status || 'pending'}
+                            </span>
+                            <span class="text-gray-400 text-xs">${dateStr}</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-dark mb-1">${data.name}</h4>
+                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                            <span><i class="fa-solid fa-phone text-gold-500 mr-1"></i> ${data.phone}</span>
+                            <span><i class="fa-solid fa-clock text-gold-500 mr-1"></i> ${data.time || 'TBD'}</span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-50 px-3 py-1 rounded-lg text-xs font-semibold text-gray-600">
+                                <i class="fa-solid fa-wand-magic-sparkles mr-1 text-gold-500"></i> ${data.service}
+                            </span>
+                            <span class="bg-gold-50 px-3 py-1 rounded-lg text-xs font-semibold text-gold-600 uppercase">
+                                <i class="fa-solid ${data.visitType === 'visit-home' ? 'fa-house-chimney' : 'fa-shop'} mr-1"></i>
+                                ${data.visitType === 'visit-home' ? 'Home Visit' : 'Shop Visit'}
+                            </span>
+                        </div>
+
+                        ${data.visitType === 'visit-home' 
+                            ? `<div class="p-4 bg-gray-50 rounded-2xl text-sm border border-gray-100">
+                                <strong class="text-xs uppercase text-gray-400 block mb-1">Customer Address</strong>
+                                <p class="text-gray-600">${data.address}</p>
+                               </div>` 
+                            : `<div class="p-4 bg-gold-50/30 rounded-2xl text-sm border border-gold-100 flex justify-between items-center">
+                                <div>
+                                    <strong class="text-xs uppercase text-gold-500 block mb-1">Shop Location</strong>
+                                    <p class="text-gold-700 text-xs">Charkop, Kandivali West, Mumbai</p>
+                                </div>
+                                <a href="https://maps.app.goo.gl/7HTLRLdd4hmUUw3k9?g_st=ac" target="_blank" class="text-gold-600 hover:text-gold-700 font-bold transition-colors">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </a>
+                               </div>`
+                        }
                     </div>
-                    ${data.visitType === 'visit-home' 
-                        ? `<div style="font-size: 0.8rem; background: #f0f0f0; padding: 0.5rem; border-radius: 5px; margin-top: 0.3rem;"><strong>Customer Address:</strong> ${data.address}</div>` 
-                        : `<div style="font-size: 0.8rem; background: #FFF9E6; border: 1px solid #FFE699; padding: 0.5rem; border-radius: 5px; margin-top: 0.3rem;">
-                            <strong>Shop Address:</strong> 102, Silver Sea View, Sector 8, Charkop, Kandivali West, Mumbai 067<br>
-                            <a href="https://maps.app.goo.gl/7HTLRLdd4hmUUw3k9?g_st=ac" target="_blank" style="color: #d4a017; font-weight: 600; text-decoration: none; font-size: 0.75rem;">
-                                <i class="fa-solid fa-location-dot"></i> View Maps
-                            </a>
-                           </div>`
-                    }
-                    <div style="font-size: 0.75rem; color: #AAA; margin-top: 0.3rem;">Booked on: ${dateStr}</div>
-                </div>
-                <div style="text-align: right;">
-                    ${data.status === 'completed' 
-                        ? `<span style="color: #28a745; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-circle-check"></i> Completed</span>` 
-                        : (canDelete ? `<button class="btn btn-outline" style="padding: 0.5rem 1rem;" onclick="markAsCompleted('${doc.id}')">Mark Done</button>` : `<span style="color: #d4a017; font-size: 0.9rem;">Pending</span>`)
-                    }
+                    <div class="flex md:flex-col items-center justify-end gap-3 min-w-[120px]">
+                        ${data.status !== 'completed' && canDelete 
+                            ? `<button class="w-full md:w-auto px-6 py-2 rounded-xl bg-gold-500 text-white font-bold text-sm hover:bg-gold-600 shadow-gold-soft transition-all active:scale-95" onclick="markAsCompleted('${doc.id}')">
+                                Mark Done
+                               </button>` 
+                            : ''
+                        }
+                        ${data.status === 'completed' 
+                            ? `<div class="flex items-center gap-1 text-green-600 font-bold text-sm">
+                                <i class="fa-solid fa-circle-check"></i> Finished
+                               </div>` 
+                            : ''
+                        }
+                    </div>
                 </div>
             `;
             list.appendChild(div);

@@ -6,21 +6,30 @@ if (typeof firebase !== 'undefined' && firebase.apps.length === 0) {
 // UI Logic for Shreeji Ear Care
 
 function openBooking() {
-    document.getElementById('bookingModal').style.display = 'flex';
+    const modal = document.getElementById('bookingModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
     toggleVisitFields(''); // Reset fields
 }
 
 function closeBooking() {
-    document.getElementById('bookingModal').style.display = 'none';
+    const modal = document.getElementById('bookingModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 
 function toggleVisitFields(prefix = '') {
     const isHome = document.querySelector(`input[name="visitType${prefix}"]:checked`).value === 'visit-home';
-    document.getElementById(`shopAddressSection${prefix}`).style.display = isHome ? 'none' : 'block';
-    document.getElementById(`homeAddressSection${prefix}`).style.display = isHome ? 'block' : 'none';
+    const shopSection = document.getElementById(`shopAddressSection${prefix}`);
+    const homeSection = document.getElementById(`homeAddressSection${prefix}`);
+    
     if (isHome) {
+        shopSection.classList.add('hidden');
+        homeSection.classList.remove('hidden');
         document.getElementById(`custAddress${prefix}`).setAttribute('required', 'true');
     } else {
+        shopSection.classList.remove('hidden');
+        homeSection.classList.add('hidden');
         document.getElementById(`custAddress${prefix}`).removeAttribute('required');
     }
 }
